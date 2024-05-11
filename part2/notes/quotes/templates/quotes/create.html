@@ -1,0 +1,31 @@
+{% extends "quotes/base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'quotes:create' %}">
+    {% csrf_token %}
+    <div style="padding: 10px">
+        <label> Quote:</label>
+        <div>{{ form.quote }}</div>
+        <span>{{ form.errors.quote }}</span>
+    </div>
+    <div style="padding: 10px">
+        <label> Select author:
+            <select name="author_fullname" required>
+                {% for author in authors %}
+                <option value="{{author.fullname}}">{{author.fullname}}</option>
+                {% endfor %}
+            </select>
+        </label>
+    </div>
+    <div style="padding: 10px">
+        <label> Tags (devided by ','):</label>
+        <div>{{ form.tags }}</div>
+        <span>{{ form.errors.tags }}</span>
+    </div>
+    <div class="grid">
+        <button type="submit">Submit</button>
+        <!-- <button type="reset" class="secondary">Reset</button> -->
+    </div>
+</form>
+{% endblock %}
